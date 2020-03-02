@@ -7,10 +7,7 @@ import java.util.Arrays;
 /**
  * Array based storage for Resumes
  */
-public class ArrayStorage implements Storage {
-    private static final int STORAGE_LIMIT = 10_000;
-    private Resume[] storage = new Resume[STORAGE_LIMIT];
-    private int size;
+public class ArrayStorage extends AbstractArrayStorage {
 
     public void save(Resume resume) {
         if (size < STORAGE_LIMIT) {
@@ -60,10 +57,6 @@ public class ArrayStorage implements Storage {
         } else {
             System.out.println("\nThe resume with \"" + uuid + "\" does not exist in the database.");
         }
-    }
-
-    public int size() {
-        return size;
     }
 
     public void clear() {
