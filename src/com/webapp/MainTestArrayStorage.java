@@ -4,6 +4,8 @@ import com.webapp.model.Resume;
 import com.webapp.storage.ArrayStorage;
 import com.webapp.storage.Storage;
 
+import java.util.Arrays;
+
 public class MainTestArrayStorage {
     private static final Storage ARRAY_STORAGE = new ArrayStorage();
 
