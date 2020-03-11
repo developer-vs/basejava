@@ -20,12 +20,14 @@ public class MainTestArrayStorage {
         ARRAY_STORAGE.save(r2);
         ARRAY_STORAGE.save(r3);
         
-        System.out.println("Get resume with \"" + r1.getUuid() + "\": " + ARRAY_STORAGE.get(r1.getUuid()));
-        System.out.println("Size of storage: " + ARRAY_STORAGE.size());
+        System.out.println("\nGet resume with \"" + r1.getUuid() + "\": " + ARRAY_STORAGE.get(r1.getUuid()));
+        
+        System.out.println("\nSize of storage: " + ARRAY_STORAGE.size());
+        
         System.out.println("Get resume with \"dummy\": " + ARRAY_STORAGE.get("dummy"));
         printAll();
         
-        System.out.println("\nDeleting the resume...");
+        System.out.println("\nTrying to delete the resume with \"uuid1\"...");
         ARRAY_STORAGE.delete(r1.getUuid());
         printAll();
         
@@ -44,15 +46,34 @@ public class MainTestArrayStorage {
         ARRAY_STORAGE.update(r1);
         printAll();
         
-        System.out.print("\nTrying to save resume...");
+        System.out.print("\nTrying to save resume with \"uuid1\"...");
         final Resume r4 = new Resume();
         r4.setUuid("uuid1");
         ARRAY_STORAGE.save(r4);
         printAll();
         
-        System.out.print("\nTrying to save resume...");
-        r2.setUuid("uuid2");
-        ARRAY_STORAGE.save(r2);
+        System.out.print("\nTrying to save resume with \"uuid5\"...");
+        final Resume r5 = new Resume();
+        r5.setUuid("uuid5");
+        ARRAY_STORAGE.save(r5);
+        printAll();
+        
+        System.out.print("\nTrying to save resume with \"uuid4\"...");
+        final Resume r6 = new Resume();
+        r6.setUuid("uuid4");
+        ARRAY_STORAGE.save(r6);
+        printAll();
+        
+        System.out.println("\nTrying to delete the resume with \"uuid1\"...");
+        ARRAY_STORAGE.delete(r4.getUuid());
+        printAll();
+        
+        System.out.println("\nTrying to deleting the resume with \"uuid1\"...");
+        ARRAY_STORAGE.delete(r4.getUuid());
+        printAll();
+        
+        System.out.println("\nTrying to delete the resume with \"uuid22\"...");
+        ARRAY_STORAGE.delete(r2.getUuid());
         printAll();
         
         System.out.print("\nTrying to clear the database...");
