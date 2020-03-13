@@ -16,7 +16,7 @@ public abstract class AbstractArrayStorage implements Storage {
     
     public void save(Resume resume) {
         if (size < STORAGE_LIMIT) {
-            if (isResumeExist(resume)) {
+            if (getIndex(resume.getUuid()) < 0) {
                 storage[size] = resume;
                 size++;
                 System.out.println("\nThe resume with \"" + resume.getUuid() + "\" has been saved in the database.");
@@ -77,8 +77,6 @@ public abstract class AbstractArrayStorage implements Storage {
     }
     
     protected abstract int getIndex(String uuid);
-    
-    protected abstract boolean isResumeExist(Resume resume);
     
     protected abstract void sortResume(Resume resume);
 }

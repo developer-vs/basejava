@@ -18,11 +18,6 @@ public class ArrayStorage extends AbstractArrayStorage {
     }
     
     @Override
-    protected boolean isResumeExist(Resume resume) {
-        return getIndex(resume.getUuid()) == -1;
-    }
-    
-    @Override
     protected void sortResume(Resume resume) {
     
     }

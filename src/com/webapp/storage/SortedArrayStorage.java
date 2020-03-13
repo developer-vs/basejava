@@ -14,11 +14,6 @@ public class SortedArrayStorage extends AbstractArrayStorage {
     }
     
     @Override
-    protected boolean isResumeExist(Resume resume) {
-        return getIndex(resume.getUuid()) <= -1;
-    }
-    
-    @Override
     protected void sortResume(Resume resume) {
         int index = Arrays.binarySearch(storage, 0, size, resume);
         
