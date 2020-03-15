@@ -74,9 +74,8 @@ public abstract class AbstractArrayStorage implements Storage {
         if (index < 0) {
             System.out.println("\nThe resume with \"" + uuid + "\" does not exist in the database.");
             return null;
-        } else {
-            return storage[index];
         }
+        return storage[index];
     }
     
     protected abstract int getIndex(String uuid);
