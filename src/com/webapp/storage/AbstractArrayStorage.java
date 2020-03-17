@@ -1,5 +1,8 @@
 package com.webapp.storage;
 
+import com.webapp.exception.ResumeExistException;
+import com.webapp.exception.ResumeNotFoundException;
+import com.webapp.exception.StorageException;
 import com.webapp.model.Resume;
 
 import java.util.Arrays;
@@ -24,11 +27,11 @@ public abstract class AbstractArrayStorage implements Storage {
                 size++;
                 System.out.println("\nThe resume with \"" + resume.getUuid() + "\" has been saved in the database.");
             } else {
-                System.out.println("\nThe resume with \"" + resume.getUuid() + "\" already exists in the database.");
+                throw new ResumeExistException(resume.getUuid());
             }
         } else {
-            System.out.println("\nThe storage is FULL, the resume with \"" + resume.getUuid()
-                + "\" cannot be saved in the database.");
+            throw new StorageException("The storage is FULL, the resume with \"" + resume.getUuid() +
+                "\" cannot be saved in the database.", resume.getUuid());
         }
     }
     
@@ -36,7 +39,7 @@ public abstract class AbstractArrayStorage implements Storage {
         index = getIndex(resume.getUuid());
         
         if (index < 0) {
-            System.out.println("\nThe resume with \"" + resume.getUuid() + "\" does not exist in the database.");
+            throw new ResumeNotFoundException(resume.getUuid());
         } else {
             storage[index] = resume;
             System.out.println("\nThe resume with \"" + resume.getUuid() + "\" has been updated.");
@@ -47,7 +50,7 @@ public abstract class AbstractArrayStorage implements Storage {
         index = getIndex(uuid);
         
         if (index < 0) {
-            System.out.println("\nThe resume with \"" + uuid + "\" does not exist in the database.");
+            throw new ResumeNotFoundException(uuid);
         } else {
             refillResume();
             storage[size - 1] = null;
@@ -72,8 +75,7 @@ public abstract class AbstractArrayStorage implements Storage {
         index = getIndex(uuid);
         
         if (index < 0) {
-            System.out.println("\nThe resume with \"" + uuid + "\" does not exist in the database.");
-            return null;
+            throw new ResumeNotFoundException(uuid);
         }
         return storage[index];
     }
