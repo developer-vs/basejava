@@ -35,9 +35,9 @@ public abstract class AbstractArrayStorageTest {
     }
     
     @Test
-    public void save() {
+    public void save() throws NoSuchFieldException {
         storage.save(new Resume(UUID_4));
-        assertEquals(UUID_4, storage.get(UUID_4).getUuid());
+        assertEquals(4, storage.size());
     }
     
     @Test
