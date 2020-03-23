@@ -61,21 +61,21 @@ public abstract class AbstractArrayStorageTest {
     
     @Test
     public void update() {
-        Resume r = new Resume("uuid50");
-        storage.save(r);
-        storage.update(r);
+        Resume resume = new Resume("uuid50");
+        storage.save(resume);
+        storage.update(resume);
     }
     
     @Test
     public void delete() {
+        int size = storage.size() - 1;
         storage.delete(UUID_1);
-        assertEquals(2, storage.size());
+        assertEquals(size, storage.size());
     }
     
     @Test(expected = ResumeNotFoundException.class)
     public void deleteResumeThatNotExist() {
         storage.delete("UUID_5");
-        assertEquals(1, storage.size());
     }
     
     @Test
@@ -91,7 +91,7 @@ public abstract class AbstractArrayStorageTest {
     
     @Test
     public void get() {
-        assertEquals(UUID_1, storage.get(UUID_1).getUuid());
+        assertEquals(r, storage.get(UUID_1));
     }
     
     @Test
