@@ -35,14 +35,14 @@ public abstract class AbstractArrayStorageTest {
     
     @Test
     public void save() {
-        Resume r = new Resume(UUID_4);
-        storage.save(r);
+        Resume resume = new Resume(UUID_4);
+        storage.save(resume);
         assertEquals(4, storage.size());
-        assertSame(r, storage.get(UUID_4));
+        assertSame(resume, storage.get(UUID_4));
     }
     
     @Test(expected = StorageException.class)
-    public void fillStorageWithException() {
+    public void fillStorageThrowExceptionTesting() {
         storage.clear();
         for (int i = 0; i < 10_001; i++) {
             storage.save(new Resume());
@@ -61,9 +61,10 @@ public abstract class AbstractArrayStorageTest {
     
     @Test
     public void update() {
-        Resume resume = new Resume("uuid50");
-        storage.save(resume);
-        storage.update(resume);
+        Resume resume50 = new Resume("uuid50");
+        storage.save(resume50);
+        storage.update(resume50);
+        assertEquals("uuid50", storage.get("uuid50").getUuid());
     }
     
     @Test
@@ -75,7 +76,7 @@ public abstract class AbstractArrayStorageTest {
     
     @Test(expected = ResumeNotFoundException.class)
     public void deleteResumeThatNotExist() {
-        storage.delete("UUID_5");
+        storage.delete("uuid200");
     }
     
     @Test
@@ -87,18 +88,19 @@ public abstract class AbstractArrayStorageTest {
     @Test
     public void getAll() {
         assertEquals(3, storage.size());
+        Resume[] resumeStorage = storage.getAll();
+        assertEquals(resumeStorage[0], storage.get(UUID_1));
+        assertEquals(resumeStorage[1], storage.get(UUID_2));
+        assertEquals(resumeStorage[2], storage.get(UUID_3));
     }
     
     @Test
     public void get() {
-        assertEquals(r, storage.get(UUID_1));
+        Resume resume100 = new Resume("uuid100");
+        storage.save(resume100);
+        assertEquals(resume100, storage.get("uuid100"));
     }
-    
-    @Test
-    public void getResumeThatNotExist() {
-        assertNotEquals("UUID_5", storage.get(UUID_1));
-    }
-    
+
     @Test(expected = ResumeNotFoundException.class)
     public void getResumeThrowExceptionTesting() {
         storage.get("dummy");
