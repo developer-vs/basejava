@@ -12,18 +12,17 @@ public abstract class AbstractArrayStorage implements Storage {
     protected static final int STORAGE_LIMIT = 10_000;
     protected Resume[] storage = new Resume[STORAGE_LIMIT];
     protected int size;
-    protected int index;
     
     public int size() {
         return size;
     }
     
     public void save(Resume resume) {
-        index = getIndex(resume.getUuid());
+        int index = getIndex(resume.getUuid());
         
         if (size < STORAGE_LIMIT) {
             if (index < 0) {
-                placeResume(resume);
+                placeResume(resume, index);
                 size++;
                 System.out.println("\nThe resume with \"" + resume.getUuid() + "\" has been saved in the database.");
             } else {
@@ -36,7 +35,7 @@ public abstract class AbstractArrayStorage implements Storage {
     }
     
     public void update(Resume resume) {
-        index = getIndex(resume.getUuid());
+        int index = getIndex(resume.getUuid());
         
         if (index < 0) {
             throw new ResumeNotFoundException(resume.getUuid());
@@ -47,12 +46,12 @@ public abstract class AbstractArrayStorage implements Storage {
     }
     
     public void delete(String uuid) {
-        index = getIndex(uuid);
+        int index = getIndex(uuid);
         
         if (index < 0) {
             throw new ResumeNotFoundException(uuid);
         } else {
-            refillResume();
+            refillResume(index);
             storage[size - 1] = null;
             size--;
             System.out.println("\nThe resume with \"" + uuid + "\" has been removed from the database.");
@@ -72,7 +71,7 @@ public abstract class AbstractArrayStorage implements Storage {
     }
     
     public Resume get(String uuid) {
-        index = getIndex(uuid);
+        int index = getIndex(uuid);
         
         if (index < 0) {
             throw new ResumeNotFoundException(uuid);
@@ -82,7 +81,7 @@ public abstract class AbstractArrayStorage implements Storage {
     
     protected abstract int getIndex(String uuid);
     
-    protected abstract void placeResume(Resume resume);
+    protected abstract void placeResume(Resume resume, int index);
     
-    protected abstract void refillResume();
+    protected abstract void refillResume(int index);
 }

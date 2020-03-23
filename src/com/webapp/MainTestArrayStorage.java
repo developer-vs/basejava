@@ -20,24 +20,24 @@ public class MainTestArrayStorage {
         System.out.println("\nGet resume with \"" + r1.getUuid() + "\": " + ARRAY_STORAGE.get(r1.getUuid()));
         
         System.out.println("\nSize of storage: " + ARRAY_STORAGE.size());
-        
+
 //        System.out.println("Get resume with \"dummy\": " + ARRAY_STORAGE.get("dummy"));
 //        printAll();
         
         System.out.println("\nTrying to delete the resume with \"uuid1\"...");
         ARRAY_STORAGE.delete(r1.getUuid());
         printAll();
-        
+
 //        System.out.println("\nTrying to update resume with \"uuid2\" to \"uuid22\"...");
 //        r2 = new Resume("uuid22");
 //        ARRAY_STORAGE.update("uuid22");
 //        printAll();
-        
+
 //        System.out.println("\nTrying to update resume with \"uuid3\" to \"uuid33\"...");
 //        r3.setUuid("uuid33");
 //        ARRAY_STORAGE.update(r3);
 //        printAll();
-        
+
 //        System.out.println("\nTrying to update resume with \"\"uuid1\" to \"uuid7\"...");
 //        r1.setUuid("uuid7");
 //        ARRAY_STORAGE.update(r1);
@@ -61,7 +61,7 @@ public class MainTestArrayStorage {
         System.out.println("\nTrying to delete the resume with \"uuid1\"...");
         ARRAY_STORAGE.delete(r4.getUuid());
         printAll();
-        
+
 //        System.out.println("\nTrying to deleting the resume with \"uuid1\"...");
 //        ARRAY_STORAGE.delete(r4.getUuid());
 //        printAll();

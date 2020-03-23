@@ -6,10 +6,6 @@ import com.webapp.model.Resume;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.lang.reflect.Field;
-import java.util.Arrays;
-import java.util.concurrent.Callable;
-
 import static org.junit.Assert.*;
 
 public abstract class AbstractArrayStorageTest {
@@ -48,19 +44,19 @@ public abstract class AbstractArrayStorageTest {
     @Test(expected = StorageException.class)
     public void fillStorageWithException() {
         storage.clear();
-        for (int i = 0; i < 10001; i++) {
+        for (int i = 0; i < 10_001; i++) {
             storage.save(new Resume());
         }
-        assertEquals(10000, storage.size());
+        assertEquals(10_000, storage.size());
     }
     
     @Test
     public void fillStorage() {
         storage.clear();
-        for (int i = 0; i < 10000; i++) {
+        for (int i = 0; i < 10_000; i++) {
             storage.save(new Resume());
         }
-        assertEquals(10000, storage.size());
+        assertEquals(10_000, storage.size());
     }
     
     @Test
