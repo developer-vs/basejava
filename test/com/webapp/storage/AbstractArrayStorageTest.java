@@ -6,20 +6,22 @@ import com.webapp.model.Resume;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
 
 public abstract class AbstractArrayStorageTest {
-    
+
     private static final String UUID_1 = "uuid1";
     private static final String UUID_2 = "uuid2";
     private static final String UUID_3 = "uuid3";
     private static final String UUID_4 = "uuid4";
     private Storage storage;
-    
+    private Resume resume4 = new Resume(UUID_4);
+
     public AbstractArrayStorageTest(Storage storage) {
         this.storage = storage;
     }
-    
+
     @Before
     public void setUp() {
         storage.clear();
@@ -27,64 +29,57 @@ public abstract class AbstractArrayStorageTest {
         storage.save(new Resume(UUID_2));
         storage.save(new Resume(UUID_3));
     }
-    
+
     @Test
     public void size() {
         assertEquals(3, storage.size());
     }
-    
+
     @Test
     public void save() {
-        Resume resume = new Resume(UUID_4);
-        storage.save(resume);
+        storage.save(resume4);
         assertEquals(4, storage.size());
-        assertSame(resume, storage.get(UUID_4));
+        assertSame(resume4, storage.get(UUID_4));
     }
-    
+
     @Test(expected = StorageException.class)
     public void fillStorageThrowExceptionTesting() {
         storage.clear();
-        for (int i = 0; i < 10_001; i++) {
+        for (int i = 0; i < AbstractArrayStorage.STORAGE_LIMIT + 1; i++) {
             storage.save(new Resume());
         }
-        assertEquals(10_000, storage.size());
+        assertEquals(AbstractArrayStorage.STORAGE_LIMIT, storage.size());
     }
-    
+
     @Test
     public void fillStorage() {
         storage.clear();
-        for (int i = 0; i < 10_000; i++) {
+        for (int i = 0; i < AbstractArrayStorage.STORAGE_LIMIT; i++) {
             storage.save(new Resume());
         }
-        assertEquals(10_000, storage.size());
+        assertEquals(AbstractArrayStorage.STORAGE_LIMIT, storage.size());
     }
-    
+
     @Test
     public void update() {
-        Resume resume50 = new Resume("uuid50");
-        storage.save(resume50);
-        storage.update(resume50);
-        assertEquals("uuid50", storage.get("uuid50").getUuid());
+        storage.save(resume4);
+        storage.update(resume4);
+        assertEquals(resume4, storage.get(UUID_4));
     }
-    
-    @Test
-    public void delete() {
-        int size = storage.size() - 1;
-        storage.delete(UUID_1);
-        assertEquals(size, storage.size());
-    }
-    
+
     @Test(expected = ResumeNotFoundException.class)
-    public void deleteResumeThatNotExist() {
-        storage.delete("uuid200");
+    public void delete() {
+        storage.save(resume4);
+        storage.delete(UUID_4);
+        assertEquals(resume4, storage.get(UUID_4));
     }
-    
+
     @Test
     public void clear() {
         storage.clear();
         assertEquals(0, storage.size());
     }
-    
+
     @Test
     public void getAll() {
         assertEquals(3, storage.size());
@@ -93,12 +88,11 @@ public abstract class AbstractArrayStorageTest {
         assertEquals(resumeStorage[1], storage.get(UUID_2));
         assertEquals(resumeStorage[2], storage.get(UUID_3));
     }
-    
+
     @Test
     public void get() {
-        Resume resume100 = new Resume("uuid100");
-        storage.save(resume100);
-        assertEquals(resume100, storage.get("uuid100"));
+        storage.save(resume4);
+        assertEquals(resume4, storage.get(UUID_4));
     }
 
     @Test(expected = ResumeNotFoundException.class)
