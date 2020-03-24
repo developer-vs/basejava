@@ -64,14 +64,14 @@ public abstract class AbstractArrayStorageTest {
     public void update() {
         storage.save(resume4);
         storage.update(resume4);
-        assertEquals(resume4, storage.get(UUID_4));
+        assertSame(resume4, storage.get(UUID_4));
     }
 
     @Test(expected = ResumeNotFoundException.class)
     public void delete() {
         storage.save(resume4);
         storage.delete(UUID_4);
-        assertEquals(resume4, storage.get(UUID_4));
+        assertSame(resume4, storage.get(UUID_4));
     }
 
     @Test
@@ -84,15 +84,15 @@ public abstract class AbstractArrayStorageTest {
     public void getAll() {
         assertEquals(3, storage.size());
         Resume[] resumeStorage = storage.getAll();
-        assertEquals(resumeStorage[0], storage.get(UUID_1));
-        assertEquals(resumeStorage[1], storage.get(UUID_2));
-        assertEquals(resumeStorage[2], storage.get(UUID_3));
+        assertSame(resumeStorage[0], storage.get(UUID_1));
+        assertSame(resumeStorage[1], storage.get(UUID_2));
+        assertSame(resumeStorage[2], storage.get(UUID_3));
     }
 
     @Test
     public void get() {
         storage.save(resume4);
-        assertEquals(resume4, storage.get(UUID_4));
+        assertSame(resume4, storage.get(UUID_4));
     }
 
     @Test(expected = ResumeNotFoundException.class)
