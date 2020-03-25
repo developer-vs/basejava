@@ -1,4 +1,4 @@
-package com.webapp.storage;
+package com.webapp.reflection;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
@@ -27,8 +27,8 @@ public class ReflectionChecker {
         }
     }
     
-    public void setPrivateField(Object object, String newUuid) throws IllegalAccessException, NoSuchFieldException {
-        Field field = object.getClass().getDeclaredField("uuid");
+    public void setPrivateField(Object object, String fieldName, String newUuid) throws IllegalAccessException, NoSuchFieldException {
+        Field field = object.getClass().getDeclaredField(fieldName);
         field.setAccessible(true); // allows us to get access to the private fields
         field.set(object, newUuid);
     }

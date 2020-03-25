@@ -1,7 +1,7 @@
 package com.webapp;
 
 import com.webapp.model.Resume;
-import com.webapp.storage.ReflectionChecker;
+import com.webapp.reflection.ReflectionChecker;
 
 import java.lang.reflect.InvocationTargetException;
 
@@ -16,7 +16,7 @@ public class MainReflection {
         reflectionChecker.showFields(resume);
         reflectionChecker.showMethods(resume);
         reflectionChecker.showMethodsAnnotations(resume);
-        reflectionChecker.setPrivateField(resume, "new_uuid");
+        reflectionChecker.setPrivateField(resume, "uuid","new_uuid");
         reflectionChecker.invokeMethod(resume, "toString");
         
     }
