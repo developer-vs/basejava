@@ -6,8 +6,7 @@ import com.webapp.model.Resume;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
+import static org.junit.Assert.*;
 
 public abstract class AbstractArrayStorageTest {
 
@@ -83,10 +82,13 @@ public abstract class AbstractArrayStorageTest {
     @Test
     public void getAll() {
         assertEquals(3, storage.size());
-        Resume[] resumeStorage = storage.getAll();
-        assertSame(resumeStorage[0], storage.get(UUID_1));
-        assertSame(resumeStorage[1], storage.get(UUID_2));
-        assertSame(resumeStorage[2], storage.get(UUID_3));
+        assertArrayEquals(
+            new String[] {UUID_1, UUID_2, UUID_3},
+            new String[] {
+                storage.get(UUID_1).toString(),
+                storage.get(UUID_2).toString(),
+                storage.get(UUID_3).toString()
+        });
     }
 
     @Test
