@@ -10,14 +10,24 @@ public class MainReflection {
     public static void main(String[] args) throws IllegalAccessException,
         InvocationTargetException, NoSuchMethodException, NoSuchFieldException {
         Resume resume = new Resume();
-        
         ReflectionChecker reflectionChecker = new ReflectionChecker();
+        
         reflectionChecker.showClassName(resume);
-        reflectionChecker.showFields(resume);
         reflectionChecker.showMethods(resume);
-        reflectionChecker.showMethodsAnnotations(resume);
-        reflectionChecker.setPrivateField(resume, "uuid","new_uuid");
+        reflectionChecker.showFields(resume);
+        
+        // show unique identifier created by constructor
         reflectionChecker.invokeMethod(resume, "toString");
         
+        // show unique identifier created by constructor
+        System.out.println(resume.getUuid());
+        
+        reflectionChecker.showFieldAnnotation(resume);
+        
+        reflectionChecker.setPrivateFieldByName(resume, "uuid", "uuid1");
+        System.out.println(resume.getUuid());
+        
+        reflectionChecker.setPrivateFieldByAnnotation(resume, "uuid4");
+        System.out.println(resume.getUuid());
     }
 }

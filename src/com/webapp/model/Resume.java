@@ -1,12 +1,14 @@
 package com.webapp.model;
 
+import com.webapp.annotation.ResumeAnnotation;
+
 import java.util.Objects;
 import java.util.UUID;
 
 public class Resume implements Comparable<Resume> {
     
-    // Unique identifier
-    private final String uuid;
+    @ResumeAnnotation
+    private final String uuid; // Unique identifier
     
     public Resume() {
         this(UUID.randomUUID().toString());
