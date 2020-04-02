@@ -1,5 +1,6 @@
 package com.webapp.storage;
 
+import com.webapp.exception.ResumeExistException;
 import com.webapp.exception.ResumeNotFoundException;
 import com.webapp.exception.StorageException;
 import com.webapp.model.Resume;
@@ -40,6 +41,12 @@ public abstract class AbstractArrayStorageTest {
         assertEquals(4, storage.size());
         assertSame(resume4, storage.get(UUID_4));
     }
+    
+    @Test(expected = ResumeExistException.class)
+    public void saveResumeThrowExceptionTesting() {
+        storage.save(resume4);
+        storage.save(resume4);
+    }
 
     @Test(expected = StorageException.class)
     public void fillStorageThrowExceptionTesting() {
@@ -64,6 +71,11 @@ public abstract class AbstractArrayStorageTest {
         storage.save(resume4);
         storage.update(resume4);
         assertSame(resume4, storage.get(UUID_4));
+    }
+    
+    @Test(expected = ResumeNotFoundException.class)
+    public void updateResumeThrowExceptionTesting() {
+        storage.update(resume4);
     }
 
     @Test(expected = ResumeNotFoundException.class)
