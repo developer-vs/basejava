@@ -24,11 +24,6 @@ public class ListStorage extends AbstractStorage {
      */
     public Resume[] getAll() {
         Resume[] resume = new Resume[storage.size()];
-        int counter = 0;
-        for(Resume r : storage) {
-            resume[counter] = r;
-            counter++;
-        }
-        return resume;
+        return storage.toArray(resume);
     }
 }
