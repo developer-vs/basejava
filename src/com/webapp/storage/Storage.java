@@ -11,13 +11,13 @@ public interface Storage {
 
     void update(Resume resume);
 
-    Resume get(String uuid);
-
     void delete(String uuid);
 
     int size();
 
     void clear();
+    
+    Resume get(String uuid);
 
     /**
      * @return array, contains only Resumes in storage (without null)
