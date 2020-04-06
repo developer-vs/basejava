@@ -1,38 +1,49 @@
 package com.webapp.storage;
 
+import com.webapp.exception.ResumeNotFoundException;
 import com.webapp.model.Resume;
 
 public abstract class AbstractStorage implements Storage {
     
     @Override
-    public abstract void save(Resume resume);
-    
-    @Override
     public void update(Resume resume) {
-    
-    }
-    
-    @Override
-    public Resume get(String uuid) {
-        return null;
+        int index = getIndex(resume.getUuid());
+        
+        if (index < 0) {
+            throw new ResumeNotFoundException(resume.getUuid());
+        } else {
+            updateResume(resume, index);
+            System.out.println("\nThe resume with \"" + resume.getUuid() + "\" has been updated.");
+        }
     }
     
     @Override
     public void delete(String uuid) {
-    
+        int index = getIndex(uuid);
+        
+        if (index < 0) {
+            throw new ResumeNotFoundException(uuid);
+        } else {
+            deleteResume(index);
+            System.out.println("\nThe resume with \"" + uuid + "\" has been removed from the database.");
+        }
     }
     
     @Override
-    public abstract int size();
-    
-    @Override
-    public void clear() {
-    
+    public Resume get(String uuid) {
+        int index = getIndex(uuid);
+        
+        if (index < 0) {
+            throw new ResumeNotFoundException(uuid);
+        }
+        return getResume(index);
     }
     
-    /**
-     * @return array, contains only Resumes in storage (without null)
-     */
-    @Override
-    public abstract Resume[] getAll();
+    protected abstract int getIndex(String uuid);
+    
+    protected abstract Resume getResume(int index);
+    
+    protected abstract void updateResume(Resume resume, int index);
+    
+    protected abstract void deleteResume(int index);
 }
