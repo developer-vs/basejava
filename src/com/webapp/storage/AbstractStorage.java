@@ -40,7 +40,7 @@ public abstract class AbstractStorage implements Storage {
         return getResume(index);
     }
 
-    protected void throwResumeNotFoundException(String uuid, int index) {
+    private void throwResumeNotFoundException(String uuid, int index) {
         if (index < 0) {
             throw new ResumeNotFoundException(uuid);
         }
