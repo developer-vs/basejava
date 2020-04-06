@@ -8,17 +8,13 @@ public abstract class AbstractStorage implements Storage {
 
     @Override
     public void save(Resume resume) {
-        int index = getIndexByResume(resume);
+        int index = getIndex(resume.getUuid());
 
         if (index < 0) {
             saveResume(resume, index);
         } else {
             throw new ResumeExistException(resume.getUuid());
         }
-    }
-
-    private int getIndexByResume(Resume resume) {
-        return getIndex(resume.getUuid());
     }
 
     @Override
