@@ -35,6 +35,7 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
         }
     }
     
+    @Override
     public void clear() {
         Arrays.fill(storage, 0, size, null);
         size = 0;
@@ -58,6 +59,7 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
         storage[index] = resume;
     }
     
+    @Override
     protected void deleteResume(int index) {
         refillResume(index);
         storage[size - 1] = null;

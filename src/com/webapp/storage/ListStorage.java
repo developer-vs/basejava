@@ -30,6 +30,7 @@ public class ListStorage extends AbstractStorage {
     /**
      * @return array, contains only Resumes in storage (without null)
      */
+    @Override
     public Resume[] getAll() {
         return storage.toArray(new Resume[0]);
     }
@@ -44,14 +45,17 @@ public class ListStorage extends AbstractStorage {
         return storage.indexOf(new Resume(uuid));
     }
     
+    @Override
     protected Resume getResume(int index) {
         return storage.get(index);
     }
     
+    @Override
     protected void updateResume(Resume resume, int index) {
         storage.set(index, resume);
     }
     
+    @Override
     protected void deleteResume(int index) {
         storage.remove(index);
     }
