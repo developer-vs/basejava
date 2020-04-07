@@ -2,8 +2,7 @@ package com.webapp;
 
 import com.webapp.model.Resume;
 
-import java.util.ArrayList;
-import java.util.Collection;
+import java.util.*;
 
 public class MainCollections {
     
@@ -28,5 +27,31 @@ public class MainCollections {
         
         collection.removeIf(r -> r.getUuid().equals(UUID_1));
         System.out.println(collection.toString());
+    
+        List<Object> list = new ArrayList<>();
+        list.add("uuid1");
+        list.add(1);
+        System.out.println(list);
+        
+        list.add(0, "uuid0");
+        System.out.println(list);
+        
+        List<String> list2 = Arrays.asList("uuid1", "uuid2", "uuid3");
+        // list2.add("four"); // UnsupportedOperationException
+        // list2.remove("one"); // UnsupportedOperationException
+        
+        List<String> uuids = Arrays.asList("uuid3", "uuid7", "uuid10", "uuid2", "uuid4", "uuid9");
+        Collections.sort(uuids);
+        System.out.println(uuids);
+    
+        List<Integer> numbers = Arrays.asList(3, 7, 10, 2, 4, 9);
+        int index = Collections.binarySearch(numbers, 4); // -2
+        System.out.println("index: " + index);
+        
+        Collections.sort(numbers);
+        System.out.println(numbers);
+        
+        int index2 = Collections.binarySearch(numbers, 10);
+        System.out.println("index: " + index2); // 5
     }
 }

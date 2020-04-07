@@ -19,31 +19,28 @@ public abstract class AbstractStorage implements Storage {
 
     @Override
     public void update(Resume resume) {
-        int index = getIndex(resume.getUuid());
-        throwResumeNotFoundException(resume.getUuid(), index);
-        updateResume(resume, index);
+        updateResume(resume, checkIndex(resume.getUuid()));
         System.out.println("\nThe resume with \"" + resume.getUuid() + "\" has been updated.");
     }
 
     @Override
     public void delete(String uuid) {
-        int index = getIndex(uuid);
-        throwResumeNotFoundException(uuid, index);
-        deleteResume(index);
+        deleteResume(checkIndex(uuid));
         System.out.println("\nThe resume with \"" + uuid + "\" has been removed from the database.");
     }
 
     @Override
     public Resume get(String uuid) {
-        int index = getIndex(uuid);
-        throwResumeNotFoundException(uuid, index);
-        return getResume(index);
+        return getResume(checkIndex(uuid));
     }
 
-    private void throwResumeNotFoundException(String uuid, int index) {
+    private int checkIndex(String uuid) {
+        int index = getIndex(uuid);
+        
         if (index < 0) {
             throw new ResumeNotFoundException(uuid);
         }
+        return index;
     }
 
     protected abstract int getIndex(String uuid);
