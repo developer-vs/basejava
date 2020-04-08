@@ -12,7 +12,7 @@ public class MapStorage extends AbstractStorage {
     @Override
     protected int getIndex(String uuid) {
         
-        if (storage.get(uuid) == null) {
+        if (!storage.containsKey(uuid)) {
             return -1;
         }
         return storage.get(uuid).hashCode();
