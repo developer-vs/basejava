@@ -25,13 +25,13 @@ public abstract class AbstractStorage implements Storage {
 
     @Override
     public void delete(String uuid) {
-        deleteResume(checkIndex(uuid));
+        deleteResume(uuid, checkIndex(uuid));
         System.out.println("\nThe resume with \"" + uuid + "\" has been removed from the database.");
     }
 
     @Override
     public Resume get(String uuid) {
-        return getResume(checkIndex(uuid));
+        return getResume(uuid, checkIndex(uuid));
     }
 
     private int checkIndex(String uuid) {
@@ -47,9 +47,9 @@ public abstract class AbstractStorage implements Storage {
 
     protected abstract void saveResume(Resume resume, int index);
 
-    protected abstract Resume getResume(int index);
+    protected abstract Resume getResume(String uuid, int index);
 
     protected abstract void updateResume(Resume resume, int index);
 
-    protected abstract void deleteResume(int index);
+    protected abstract void deleteResume(String uuid, int index);
 }
