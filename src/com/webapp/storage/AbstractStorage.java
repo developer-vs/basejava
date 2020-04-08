@@ -8,10 +8,10 @@ public abstract class AbstractStorage implements Storage {
 
     @Override
     public void save(Resume resume) {
-        int index = getIndex(resume.getUuid());
+        int searchKey = getIndex(resume.getUuid());
 
-        if (index < 0) {
-            saveResume(resume, index);
+        if (searchKey < 0) {
+            saveResume(resume, searchKey);
         } else {
             throw new ResumeExistException(resume.getUuid());
         }
@@ -35,21 +35,21 @@ public abstract class AbstractStorage implements Storage {
     }
 
     private int checkIndex(String uuid) {
-        int index = getIndex(uuid);
+        int searchKey = getIndex(uuid);
         
-        if (index < 0) {
+        if (searchKey < 0) {
             throw new ResumeNotFoundException(uuid);
         }
-        return index;
+        return searchKey;
     }
 
     protected abstract int getIndex(String uuid);
 
-    protected abstract void saveResume(Resume resume, int index);
+    protected abstract void saveResume(Resume resume, int searchKey);
 
-    protected abstract Resume getResume(String uuid, int index);
+    protected abstract Resume getResume(String uuid, int searchKey);
 
-    protected abstract void updateResume(Resume resume, int index);
+    protected abstract void updateResume(Resume resume, int searchKey);
 
-    protected abstract void deleteResume(String uuid, int index);
+    protected abstract void deleteResume(String uuid, int searchKey);
 }
