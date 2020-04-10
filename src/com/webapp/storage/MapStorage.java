@@ -10,7 +10,7 @@ public class MapStorage extends AbstractStorage {
     private Map<String, Resume> storage = new HashMap<>();
     
     @Override
-    protected int getSearchKey(String uuid) {
+    protected int getSearchKey(Object uuid) {
         
         if (!storage.containsKey(uuid)) {
             return -1;
@@ -24,7 +24,7 @@ public class MapStorage extends AbstractStorage {
     }
     
     @Override
-    protected Resume getResume(String uuid, int index) {
+    protected Resume getResume(Object uuid) {
         return storage.get(uuid);
     }
     
@@ -34,7 +34,7 @@ public class MapStorage extends AbstractStorage {
     }
     
     @Override
-    protected void deleteResume(String uuid, int index) {
+    protected void deleteResume(Object uuid) {
         storage.remove(uuid);
     }
     
