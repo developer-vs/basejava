@@ -18,7 +18,7 @@ public class MapStorage extends AbstractStorage {
         return storage.get(uuid).hashCode();
     }
     
-    protected void saveResume(Resume resume, int index) {
+    protected void saveResume(Resume resume, int searchKey) {
         storage.put(resume.getUuid(), resume);
         System.out.println("\nThe resume with \"" + resume.getUuid() + "\" has been saved in the database.");
     }
@@ -29,7 +29,7 @@ public class MapStorage extends AbstractStorage {
     }
     
     @Override
-    protected void updateResume(Resume resume, int index) {
+    protected void updateResume(Resume resume, int searchKey) {
         storage.replace(resume.getUuid(), resume);
     }
     

@@ -24,13 +24,13 @@ public abstract class AbstractStorage implements Storage {
     }
     
     @Override
-    public void delete(Object uuid) {
+    public void delete(String uuid) {
         deleteResume(checkSearchKey(uuid));
         System.out.println("\nThe resume with \"" + uuid + "\" has been removed from the database.");
     }
     
     @Override
-    public Resume get(Object uuid) {
+    public Resume get(String uuid) {
         return getResume(checkSearchKey(uuid));
     }
     
