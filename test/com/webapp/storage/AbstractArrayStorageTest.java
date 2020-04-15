@@ -50,19 +50,19 @@ public abstract class AbstractArrayStorageTest extends AbstractStorageTest {
         storage.save(resume3);
     }
 
-    @Test(expected = StorageException.class)
-    public void fillStorageThrowExceptionTesting() {
+    @Test
+    public void fillStorage() {
         storage.clear();
-        for (int i = 0; i < AbstractArrayStorage.STORAGE_LIMIT + 1; i++) {
+        for (int i = 0; i < AbstractArrayStorage.STORAGE_LIMIT; i++) {
             storage.save(new Resume());
         }
         assertEquals(AbstractArrayStorage.STORAGE_LIMIT, storage.size());
     }
 
-    @Test
-    public void fillStorage() {
+    @Test(expected = StorageException.class)
+    public void fillStorageThrowExceptionTesting() {
         storage.clear();
-        for (int i = 0; i < AbstractArrayStorage.STORAGE_LIMIT; i++) {
+        for (int i = 0; i < AbstractArrayStorage.STORAGE_LIMIT + 1; i++) {
             storage.save(new Resume());
         }
         assertEquals(AbstractArrayStorage.STORAGE_LIMIT, storage.size());
@@ -98,10 +98,7 @@ public abstract class AbstractArrayStorageTest extends AbstractStorageTest {
 
     @Test
     public void getAll() {
-        Resume[] expectedStorage = {
-                new Resume(UUID_1),
-                new Resume(UUID_2),
-                new Resume(UUID_3)};
+        Resume[] expectedStorage = {resume1, resume2, resume3};
         assertArrayEquals(expectedStorage, storage.getAll());
     }
 
