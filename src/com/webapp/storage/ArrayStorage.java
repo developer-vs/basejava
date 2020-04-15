@@ -6,7 +6,7 @@ import com.webapp.model.Resume;
  * Array based storage for Resumes
  */
 public class ArrayStorage extends AbstractArrayStorage {
-    
+
     @Override
     protected int getSearchKey(Object uuid) {
         for (int i = 0; i < size; i++) {
@@ -16,12 +16,12 @@ public class ArrayStorage extends AbstractArrayStorage {
         }
         return -1;
     }
-    
+
     @Override
     protected void placeResume(Resume resume, int index) {
         storage[size] = resume;
     }
-    
+
     @Override
     protected void refillResume(int index) {
         storage[index] = storage[size - 1];

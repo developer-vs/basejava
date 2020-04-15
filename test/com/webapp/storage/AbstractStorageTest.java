@@ -19,25 +19,4 @@ public class AbstractStorageTest {
     @Test
     public void get() {
     }
-
-    @Test
-    public void getSearchKey() {
-    }
-
-    @Test
-    public void saveResume() {
-        System.out.println("Testing... from saveResume()");
-    }
-
-    @Test
-    public void getResume() {
-    }
-
-    @Test
-    public void updateResume() {
-    }
-
-    @Test
-    public void deleteResume() {
-    }
 }

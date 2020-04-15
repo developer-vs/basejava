@@ -3,7 +3,9 @@ package com.webapp.storage;
 import com.webapp.exception.ResumeNotFoundException;
 import com.webapp.model.Resume;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.TreeMap;
 
 public class MapStorage extends AbstractStorage {
 
@@ -41,8 +43,15 @@ public class MapStorage extends AbstractStorage {
     }
 
     @Override
-    protected void deleteResume(Object uuid) {
-        storage.remove(uuid);
+    public void delete(String uuid) {
+        checkSearchKey(uuid);
+        deleteResume(uuid);
+        System.out.println("\nThe resume with \"" + uuid + "\" has been removed from the database.");
+    }
+
+    @Override
+    protected void deleteResume(Object searchKey) {
+        storage.remove(searchKey);
     }
 
     @Override

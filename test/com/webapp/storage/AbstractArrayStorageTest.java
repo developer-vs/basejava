@@ -9,7 +9,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public abstract class AbstractArrayStorageTest extends AbstractStorageTest{
+public abstract class AbstractArrayStorageTest extends AbstractStorageTest {
 
     private static final String UUID_1 = "uuid1";
     private static final String UUID_2 = "uuid2";
@@ -40,12 +40,13 @@ public abstract class AbstractArrayStorageTest extends AbstractStorageTest{
 
     @Override
     @Test
-    public void save() { ;
+    public void save() {
+        ;
         assertSame(resume1, storage.get(UUID_1));
     }
 
     @Test(expected = ResumeExistException.class)
-    public void saveResumeThrowExceptionTesting() {
+    public void saveThrowExceptionTesting() {
         storage.save(resume3);
     }
 
@@ -69,20 +70,24 @@ public abstract class AbstractArrayStorageTest extends AbstractStorageTest{
 
     @Test
     public void update() {
-        storage.save(resume4);
-        storage.update(resume4);
-        assertSame(resume4, storage.get(UUID_4));
-    }
-    
-    @Test(expected = ResumeNotFoundException.class)
-    public void updateResumeThrowExceptionTesting() {
-        storage.update(resume4);
+        storage.update(resume3);
+        assertSame(resume3, storage.get(UUID_3));
     }
 
     @Test(expected = ResumeNotFoundException.class)
+    public void updateThrowExceptionTesting() {
+        storage.update(resume4);
+    }
+
+    @Test
     public void delete() {
         storage.delete(UUID_3);
-        assertSame(resume4, storage.get(UUID_4));
+        assertEquals(2, storage.size());
+    }
+
+    @Test(expected = ResumeNotFoundException.class)
+    public void deleteThrowExceptionTesting() {
+        storage.delete(UUID_4);
     }
 
     @Test
@@ -102,12 +107,11 @@ public abstract class AbstractArrayStorageTest extends AbstractStorageTest{
 
     @Test
     public void get() {
-        storage.save(resume4);
-        assertSame(resume4, storage.get(UUID_4));
+        assertSame(resume3, storage.get(UUID_3));
     }
 
     @Test(expected = ResumeNotFoundException.class)
-    public void getResumeThrowExceptionTesting() {
+    public void getThrowExceptionTesting() {
         storage.get("dummy");
     }
 }
