@@ -41,7 +41,6 @@ public abstract class AbstractArrayStorageTest extends AbstractStorageTest {
     @Override
     @Test
     public void save() {
-        ;
         assertSame(resume1, storage.get(UUID_1));
     }
 
@@ -109,6 +108,6 @@ public abstract class AbstractArrayStorageTest extends AbstractStorageTest {
 
     @Test(expected = ResumeNotFoundException.class)
     public void getThrowExceptionTesting() {
-        storage.get("dummy");
+        storage.get(UUID_4);
     }
 }
