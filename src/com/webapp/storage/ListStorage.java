@@ -9,14 +9,14 @@ public class ListStorage extends AbstractStorage {
 
     private final List<Resume> storage = new ArrayList<>();
 
-    protected void saveResume(Resume resume, int index) {
-        storage.add(resume);
-        System.out.println("\nThe resume with \"" + resume.getUuid() + "\" has been saved in the database.");
-    }
-
     @Override
     public int size() {
         return storage.size();
+    }
+
+    @Override
+    public void clear() {
+        storage.clear();
     }
 
     /**
@@ -25,11 +25,6 @@ public class ListStorage extends AbstractStorage {
     @Override
     public Resume[] getAll() {
         return storage.toArray(new Resume[0]);
-    }
-
-    @Override
-    public void clear() {
-        storage.clear();
     }
 
     @Override
@@ -50,5 +45,10 @@ public class ListStorage extends AbstractStorage {
     @Override
     protected void deleteResume(Object index) {
         storage.remove((int) index);
+    }
+
+    protected void saveResume(Resume resume, int index) {
+        storage.add(resume);
+        System.out.println("\nThe resume with \"" + resume.getUuid() + "\" has been saved in the database.");
     }
 }
