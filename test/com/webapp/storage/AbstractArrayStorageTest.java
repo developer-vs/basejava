@@ -9,14 +9,17 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public abstract class AbstractArrayStorageTest {
+public abstract class AbstractArrayStorageTest extends AbstractStorageTest{
 
     private static final String UUID_1 = "uuid1";
     private static final String UUID_2 = "uuid2";
     private static final String UUID_3 = "uuid3";
     private static final String UUID_4 = "uuid4";
-    private Storage storage;
-    private Resume resume4 = new Resume(UUID_4);
+    private final Resume resume1 = new Resume(UUID_1);
+    private final Resume resume2 = new Resume(UUID_2);
+    private final Resume resume3 = new Resume(UUID_3);
+    private final Resume resume4 = new Resume(UUID_4);
+    private final Storage storage;
 
     public AbstractArrayStorageTest(Storage storage) {
         this.storage = storage;
@@ -25,9 +28,9 @@ public abstract class AbstractArrayStorageTest {
     @Before
     public void setUp() {
         storage.clear();
-        storage.save(new Resume(UUID_1));
-        storage.save(new Resume(UUID_2));
-        storage.save(new Resume(UUID_3));
+        storage.save(resume1);
+        storage.save(resume2);
+        storage.save(resume3);
     }
 
     @Test
@@ -35,17 +38,15 @@ public abstract class AbstractArrayStorageTest {
         assertEquals(3, storage.size());
     }
 
+    @Override
     @Test
-    public void save() {
-        storage.save(resume4);
-        assertEquals(4, storage.size());
-        assertSame(resume4, storage.get(UUID_4));
+    public void save() { ;
+        assertSame(resume1, storage.get(UUID_1));
     }
-    
+
     @Test(expected = ResumeExistException.class)
     public void saveResumeThrowExceptionTesting() {
-        storage.save(resume4);
-        storage.save(resume4);
+        storage.save(resume3);
     }
 
     @Test(expected = StorageException.class)
@@ -80,8 +81,7 @@ public abstract class AbstractArrayStorageTest {
 
     @Test(expected = ResumeNotFoundException.class)
     public void delete() {
-        storage.save(resume4);
-        storage.delete(UUID_4);
+        storage.delete(UUID_3);
         assertSame(resume4, storage.get(UUID_4));
     }
 
@@ -93,8 +93,10 @@ public abstract class AbstractArrayStorageTest {
 
     @Test
     public void getAll() {
-        assertEquals(3, storage.size());
-        Resume[] expectedStorage = {new Resume(UUID_1), new Resume(UUID_2), new Resume(UUID_3)};
+        Resume[] expectedStorage = {
+                new Resume(UUID_1),
+                new Resume(UUID_2),
+                new Resume(UUID_3)};
         assertArrayEquals(expectedStorage, storage.getAll());
     }
 

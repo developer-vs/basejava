@@ -31,7 +31,7 @@ public abstract class AbstractStorage implements Storage {
     
     @Override
     public Resume get(String uuid) {
-        return getResume(checkSearchKey(uuid));
+         return getResume(checkSearchKey(uuid));
     }
     
     private int checkSearchKey(Object uuid) {

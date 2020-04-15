@@ -7,7 +7,7 @@ import java.util.List;
 
 public class ListStorage extends AbstractStorage {
     
-    private List<Resume> storage = new ArrayList<>();
+    private final List<Resume> storage = new ArrayList<>();
     
     protected void saveResume(Resume resume, int index) {
         storage.add(resume);
