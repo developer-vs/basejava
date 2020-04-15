@@ -38,6 +38,12 @@ public abstract class AbstractArrayStorageTest extends AbstractStorageTest {
         assertEquals(3, storage.size());
     }
 
+    @Test
+    public void clear() {
+        storage.clear();
+        assertEquals(0, storage.size());
+    }
+
     @Override
     @Test
     public void save() {
@@ -51,22 +57,23 @@ public abstract class AbstractArrayStorageTest extends AbstractStorageTest {
 
     @Test
     public void fillStorage() {
-        storage.clear();
-        for (int i = 0; i < AbstractArrayStorage.STORAGE_LIMIT; i++) {
-            storage.save(new Resume());
-        }
-        assertEquals(AbstractArrayStorage.STORAGE_LIMIT, storage.size());
+        fillStorageBase(AbstractArrayStorage.STORAGE_LIMIT);
     }
 
     @Test(expected = StorageException.class)
     public void fillStorageThrowExceptionTesting() {
-        storage.clear();
-        for (int i = 0; i < AbstractArrayStorage.STORAGE_LIMIT + 1; i++) {
-            storage.save(new Resume());
-        }
-        assertEquals(AbstractArrayStorage.STORAGE_LIMIT, storage.size());
+        fillStorageBase(AbstractArrayStorage.STORAGE_LIMIT + 1);
     }
 
+    private void fillStorageBase(int storageLimit) {
+        storage.clear();
+        for (int i = 0; i < storageLimit; i++) {
+            storage.save(new Resume());
+        }
+        assertEquals(storageLimit, storage.size());
+    }
+
+    @Override
     @Test
     public void update() {
         storage.update(resume3);
@@ -78,6 +85,7 @@ public abstract class AbstractArrayStorageTest extends AbstractStorageTest {
         storage.update(resume4);
     }
 
+    @Override
     @Test
     public void delete() {
         storage.delete(UUID_3);
@@ -90,17 +98,12 @@ public abstract class AbstractArrayStorageTest extends AbstractStorageTest {
     }
 
     @Test
-    public void clear() {
-        storage.clear();
-        assertEquals(0, storage.size());
-    }
-
-    @Test
     public void getAll() {
         Resume[] expectedStorage = {resume1, resume2, resume3};
         assertArrayEquals(expectedStorage, storage.getAll());
     }
 
+    @Override
     @Test
     public void get() {
         assertSame(resume3, storage.get(UUID_3));
