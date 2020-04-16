@@ -8,7 +8,6 @@ import java.util.Map;
 import java.util.TreeMap;
 
 public class MapStorage extends AbstractStorage {
-
     private Map<String, Resume> storage = new HashMap<>();
 
     @Override
