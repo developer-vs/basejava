@@ -32,7 +32,7 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    protected Resume getResume(Object index) {
+    protected Resume getResume(Object index, Object uuid) {
         return storage.get((int) index);
     }
 
@@ -42,7 +42,7 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    protected void deleteResume(Object index) {
+    protected void deleteResume(Object index, Object uuid) {
         storage.remove((int) index);
     }
 

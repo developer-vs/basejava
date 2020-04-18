@@ -7,11 +7,9 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
 public abstract class AbstractArrayStorageTest extends AbstractStorageTest {
-    private final Storage storage;
 
     public AbstractArrayStorageTest(Storage storage) {
         super(storage);
-        this.storage = storage;
     }
 
     @Test

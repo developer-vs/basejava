@@ -27,14 +27,14 @@ public abstract class AbstractStorage implements Storage {
     @Override
     public void delete(String uuid) {
         int searchKey = checkSearchKey(uuid);
-        deleteResume(searchKey);
+        deleteResume(searchKey, uuid);
         System.out.println("\nThe resume with \"" + uuid + "\" has been removed from the database.");
     }
 
     @Override
     public Resume get(String uuid) {
         int searchKey = checkSearchKey(uuid);
-        return getResume(searchKey);
+        return getResume(searchKey, uuid);
     }
 
     protected int checkSearchKey(String uuid) {
@@ -46,11 +46,11 @@ public abstract class AbstractStorage implements Storage {
         return searchKey;
     }
 
-    protected abstract void deleteResume(Object index);
-
-    protected abstract Resume getResume(Object searchKey);
-
     protected abstract int getSearchKey(Object uuid);
+
+    protected abstract Resume getResume(Object searchKey, Object uuid);
+
+    protected abstract void deleteResume(Object index, Object uuid);
 
     protected abstract void saveResume(Resume resume, int searchKey);
 

@@ -1,6 +1,5 @@
 package com.webapp.storage;
 
-import com.webapp.exception.ResumeNotFoundException;
 import com.webapp.model.Resume;
 
 import java.util.HashMap;
@@ -20,13 +19,6 @@ public class MapStorage extends AbstractStorage {
         storage.clear();
     }
 
-    @Override
-    public void delete(String uuid) {
-        checkSearchKey(uuid);
-        deleteResume(uuid);
-        System.out.println("\nThe resume with \"" + uuid + "\" has been removed from the database.");
-    }
-
     /**
      * @return array, contains only Resumes in storage (without null)
      */
@@ -34,14 +26,6 @@ public class MapStorage extends AbstractStorage {
     public Resume[] getAll() {
         storage = new TreeMap<>(storage);
         return storage.values().toArray(new Resume[0]);
-    }
-
-    @Override
-    public Resume get(String uuid) {
-        if (getSearchKey(uuid) < 0) {
-            throw new ResumeNotFoundException(uuid);
-        }
-        return getResume(uuid);
     }
 
     @Override
@@ -53,7 +37,7 @@ public class MapStorage extends AbstractStorage {
     }
 
     @Override
-    protected Resume getResume(Object uuid) {
+    protected Resume getResume(Object searchKey, Object uuid) {
         return storage.get(uuid);
     }
 
@@ -68,7 +52,7 @@ public class MapStorage extends AbstractStorage {
     }
 
     @Override
-    protected void deleteResume(Object searchKey) {
-        storage.remove(searchKey);
+    protected void deleteResume(Object searchKey, Object uuid) {
+        storage.remove(uuid);
     }
 }
