@@ -1,16 +1,14 @@
 package com.webapp;
 
 import com.webapp.model.Resume;
-import com.webapp.storage.ListStorage;
-import com.webapp.storage.MapStorage;
-import com.webapp.storage.SortedArrayStorage;
-import com.webapp.storage.Storage;
+import com.webapp.storage.*;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class MainArray {
+
     private static final Storage ARRAY_STORAGE = new MapStorage();
     
     public static void main(String[] args) throws IOException {
