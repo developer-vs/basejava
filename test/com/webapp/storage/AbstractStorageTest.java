@@ -9,6 +9,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public abstract class AbstractStorageTest {
+
     private final String UUID_1 = "uuid1";
     private final String UUID_2 = "uuid2";
     private final String UUID_3 = "uuid3";
@@ -69,7 +70,7 @@ public abstract class AbstractStorageTest {
     public void delete() {
         storage.delete(UUID_3);
         assertEquals(2, storage.size());
-        storage.get(UUID_3);
+        storage.delete(UUID_3);
     }
 
     @Test

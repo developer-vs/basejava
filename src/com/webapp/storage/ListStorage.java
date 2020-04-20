@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ListStorage extends AbstractStorage {
+
     private final List<Resume> storage = new ArrayList<>();
 
     @Override
@@ -27,27 +28,27 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    protected int getSearchKey(Object uuid) {
-        return storage.indexOf(new Resume((String) uuid));
+    protected void saveResume(Resume resume) {
+        storage.add(resume);
     }
 
     @Override
-    protected Resume getResume(Object index, Object uuid) {
+    protected int getSearchKey(String uuid) {
+        return storage.indexOf(new Resume(uuid));
+    }
+
+    @Override
+    public Resume getResume(Object index) {
         return storage.get((int) index);
     }
 
     @Override
-    protected void updateResume(Resume resume, int index) {
-        storage.set(index, resume);
+    protected void updateResume(Resume resume) {
+        storage.set(updateResumeKey, resume);
     }
 
     @Override
-    protected void deleteResume(Object index, Object uuid) {
-        storage.remove((int) index);
-    }
-
-    protected void saveResume(Resume resume, int index) {
-        storage.add(resume);
-        System.out.println("\nThe resume with \"" + resume.getUuid() + "\" has been saved in the database.");
+    public void deleteResume(String uuid) {
+        storage.remove(checkSearchKey(uuid));
     }
 }

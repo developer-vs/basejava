@@ -6,6 +6,7 @@ import com.webapp.model.Resume;
 import java.util.Arrays;
 
 public abstract class AbstractArrayStorage extends AbstractStorage {
+
     protected static final int STORAGE_LIMIT = 10_000;
     protected Resume[] storage = new Resume[STORAGE_LIMIT];
     protected int size;
@@ -30,35 +31,33 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     }
 
     @Override
-    protected void saveResume(Resume resume, int index) {
+    protected void saveResume(Resume resume) {
         if (size < STORAGE_LIMIT) {
-            placeResume(resume, index);
+            placeResume(resume);
             size++;
-            System.out.println("\nThe resume with \"" + resume.getUuid() + "\" has been saved in the database.");
         } else {
-            throw new StorageException("The storage is FULL, the resume with \"" + resume.getUuid() +
-                    "\" cannot be saved in the database.", resume.getUuid());
+            throw new StorageException(showMessageStorageFull(resume));
         }
     }
 
     @Override
-    protected Resume getResume(Object index, Object uuid) {
+    protected Resume getResume(Object index) {
         return storage[(int) index];
     }
 
     @Override
-    protected void updateResume(Resume resume, int index) {
-        storage[index] = resume;
+    protected void updateResume(Resume resume) {
+        storage[updateResumeKey] = resume;
     }
 
     @Override
-    protected void deleteResume(Object index, Object uuid) {
-        refillResume((int) index);
+    protected void deleteResume(String uuid) {
+        refillResume(checkSearchKey(uuid));
         storage[size - 1] = null;
         size--;
     }
 
     protected abstract void refillResume(int index);
 
-    protected abstract void placeResume(Resume resume, int index);
+    protected abstract void placeResume(Resume resume);
 }

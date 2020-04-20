@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 public class MapStorage extends AbstractStorage {
+
     private Map<String, Resume> storage = new HashMap<>();
 
     @Override
@@ -29,7 +30,13 @@ public class MapStorage extends AbstractStorage {
     }
 
     @Override
-    protected int getSearchKey(Object uuid) {
+    public Resume get(String uuid) {
+        checkSearchKey(uuid);
+        return getResume(uuid);
+    }
+
+    @Override
+    protected int getSearchKey(String uuid) {
         if (!storage.containsKey(uuid)) {
             return -1;
         }
@@ -37,22 +44,23 @@ public class MapStorage extends AbstractStorage {
     }
 
     @Override
-    protected Resume getResume(Object searchKey, Object uuid) {
-        return storage.get(uuid);
-    }
-
-    protected void saveResume(Resume resume, int searchKey) {
-        storage.put(resume.getUuid(), resume);
-        System.out.println("\nThe resume with \"" + resume.getUuid() + "\" has been saved in the database.");
+    public Resume getResume(Object searchKey) {
+        return storage.get((String) searchKey);
     }
 
     @Override
-    protected void updateResume(Resume resume, int searchKey) {
+    protected void saveResume(Resume resume) {
+        storage.put(resume.getUuid(), resume);
+    }
+
+    @Override
+    protected void updateResume(Resume resume) {
         storage.replace(resume.getUuid(), resume);
     }
 
     @Override
-    protected void deleteResume(Object searchKey, Object uuid) {
+    public void deleteResume(String uuid) {
+        checkSearchKey(uuid);
         storage.remove(uuid);
     }
 }

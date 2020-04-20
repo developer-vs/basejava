@@ -6,35 +6,38 @@ import com.webapp.model.Resume;
 
 public abstract class AbstractStorage implements Storage {
 
+    protected int saveResumeKey;
+    protected int updateResumeKey;
+
     @Override
     public void save(Resume resume) {
-        int searchKey = getSearchKey(resume.getUuid());
+        saveResumeKey = getSearchKey(resume.getUuid());
 
-        if (searchKey < 0) {
-            saveResume(resume, searchKey);
+        if (saveResumeKey < 0) {
+            saveResume(resume);
+            System.out.println(showMessage(resume.getUuid(), "saved"));
         } else {
             throw new ResumeExistException(resume.getUuid());
         }
     }
 
     @Override
+    public Resume get(String uuid) {
+        int searchKey = checkSearchKey(uuid);
+        return getResume(searchKey);
+    }
+
+    @Override
     public void update(Resume resume) {
-        int searchKey = checkSearchKey(resume.getUuid());
-        updateResume(resume, searchKey);
-        System.out.println("\nThe resume with \"" + resume.getUuid() + "\" has been updated.");
+        updateResumeKey = checkSearchKey(resume.getUuid());
+        updateResume(resume);
+        System.out.println(showMessage(resume.getUuid(), "updated"));
     }
 
     @Override
     public void delete(String uuid) {
-        int searchKey = checkSearchKey(uuid);
-        deleteResume(searchKey, uuid);
-        System.out.println("\nThe resume with \"" + uuid + "\" has been removed from the database.");
-    }
-
-    @Override
-    public Resume get(String uuid) {
-        int searchKey = checkSearchKey(uuid);
-        return getResume(searchKey, uuid);
+        deleteResume(uuid);
+        System.out.println(showMessage(uuid , "removed"));
     }
 
     protected int checkSearchKey(String uuid) {
@@ -46,13 +49,22 @@ public abstract class AbstractStorage implements Storage {
         return searchKey;
     }
 
-    protected abstract int getSearchKey(Object uuid);
+    protected String showMessage(String uuid, String msg) {
+        return "\nThe resume with \"" + uuid + "\" has been " + msg + ".";
+    }
 
-    protected abstract Resume getResume(Object searchKey, Object uuid);
+    protected String showMessageStorageFull(Resume resume) {
+        return "The storage is FULL, the resume with \"" + resume.getUuid() +
+                "\" cannot be saved in the database.";
+    }
 
-    protected abstract void deleteResume(Object index, Object uuid);
+    protected abstract void saveResume(Resume resume);
 
-    protected abstract void saveResume(Resume resume, int searchKey);
+    protected abstract int getSearchKey(String uuid);
 
-    protected abstract void updateResume(Resume resume, int searchKey);
+    protected abstract Resume getResume(Object searchKey);
+
+    protected abstract void updateResume(Resume resume);
+
+    protected abstract void deleteResume(String uuid);
 }
